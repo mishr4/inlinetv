@@ -374,6 +374,66 @@
   [data-framer-root] { min-height: unset !important; }
 </style>
 
+<!-- ===== SUPABASE ARTICLE HYDRATION ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function hydrateArticles() {
+  const SUPABASE_URL = 'https://qiyxxjlekhnjthuepxzt.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeXh4amxla2huanRodWVweHp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NTk2NDIsImV4cCI6MjA5NDAzNTY0Mn0.bRYA7hB5b3TZGlYJCJ06skDLEY6INGdFQztt89tIPWg';
+
+  // Wait for Framer hydration, then replace story cards with Supabase data
+  const check = setInterval(async () => {
+    // Find the stories container: .framer-1fjrisr > .framer-gs3vwy
+    const storiesContainer = document.querySelector('.framer-gs3vwy');
+    if (!storiesContainer) return;
+    clearInterval(check);
+
+    try {
+      const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+      const { data, error } = await sb
+        .from('articles')
+        .select('category, title')
+        .eq('published', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      if (error || !data || data.length === 0) return; // keep static content on failure
+
+      // The three story card containers inside .framer-gs3vwy
+      const cardContainers = storiesContainer.children;
+      // Map categories to card slots: [0]=robloxians, [1]=meetings, [2]=voice
+      const categoryMap = { robloxians: 0, meetings: 1, voice: 2, news: 0, general: 1 };
+
+      data.forEach((article, idx) => {
+        if (idx >= cardContainers.length) return;
+        const card = cardContainers[idx];
+        if (!card) return;
+
+        // Update category label (the first RichTextContainer with bold 11px text)
+        const categoryEls = card.querySelectorAll('[data-framer-component-type="RichTextContainer"]');
+        categoryEls.forEach(el => {
+          const p = el.querySelector('p');
+          if (p) {
+            const fontSize = p.style.getPropertyValue('--framer-font-size');
+            const fontWeight = p.style.getPropertyValue('--framer-font-weight');
+            if (fontSize === '11px' && fontWeight === '700') {
+              p.textContent = article.category.toUpperCase();
+            }
+            if (fontSize === '18px' && fontWeight === '500') {
+              p.textContent = article.title;
+            }
+          }
+        });
+      });
+    } catch (e) {
+      // Silently fail — static content remains
+      console.warn('Article hydration failed:', e);
+    }
+  }, 500);
+  setTimeout(() => clearInterval(check), 10000);
+})();
+</script>
+
 <!-- ===== YOUTUBE VIDEOS SECTION ===== -->
 <style>
   .yt-section { max-width: 1200px; margin: 40px auto 60px; padding: 0 24px; font-family: 'Inter', sans-serif; }

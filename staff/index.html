@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Portal — Inline TV</title>
+  <link href="../images/nHNJSMT3WlUndT1kg7386H9TU.png" rel="icon" media="(prefers-color-scheme: light)">
+  <link href="../images/4pHoiEYsUvFiyylIdXFWojcXw.png" rel="icon" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700&family=Geist:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face { font-family: "ABC Ginto Nord Unlicensed Trial Bold"; src: url("https://framerusercontent.com/assets/45iuft7aIieyPmQo3XZH1OrtyLo.woff2"); font-display: swap; font-weight: 700 }
+    @font-face { font-family: "ABC Ginto GRK Normal Unlicensed Trial Regular"; src: url("https://framerusercontent.com/assets/3YnML6L46RAV7JS1DHmyJF9YKg.woff2"); font-display: swap; font-weight: 400 }
+    @font-face { font-family: "ABC Ginto GRK Normal Unlicensed Trial Bold"; src: url("https://framerusercontent.com/assets/EbmAejJgYKfy3dba8SPSW5Jzxo.woff2"); font-display: swap; font-weight: 700 }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; }
+    body { background: #fef6f0; font-family: 'Inter', sans-serif; color: #1a1a1a; overflow-x: hidden; min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== HEADER ===== */
+    .header { background: #20f; height: 70px; display: flex; align-items: center; padding: 0 56px; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo { height: 29px; }
+    .logo img { height: 100%; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.7); font-family: 'ABC Ginto GRK Normal Unlicensed Trial Regular', 'Inter', sans-serif; font-size: 15px; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+
+    /* ===== PAGE CONTENT ===== */
+    .page { max-width: 1200px; margin: 0 auto; padding: 32px 24px 60px; }
+
+    /* ===== LOGIN SCREEN ===== */
+    .login-screen { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 70px); }
+    .login-card { background: #fff; border-radius: 20px; padding: 48px 40px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+    .login-card h1 { font-family: 'ABC Ginto Nord Unlicensed Trial Bold', 'Geist', sans-serif; font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .login-card p { color: #767676; font-size: 15px; margin-bottom: 32px; line-height: 1.5; }
+    .login-icon { width: 64px; height: 64px; margin: 0 auto 20px; background: #f0edff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .login-icon svg { width: 28px; height: 28px; fill: #20f; }
+    .btn-google { display: inline-flex; align-items: center; gap: 10px; background: #20f; color: #fff; border: none; padding: 14px 32px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-google:hover { background: #1a00d4; transform: translateY(-1px); }
+    .btn-google svg { width: 20px; height: 20px; }
+
+    /* ===== DASHBOARD ===== */
+    .dashboard { display: none; }
+    .dashboard.visible { display: block; }
+    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+    .dash-header h1 { font-family: 'ABC Ginto Nord Unlicensed Trial Bold', 'Geist', sans-serif; font-size: 28px; font-weight: 700; }
+    .dash-user { display: flex; align-items: center; gap: 12px; }
+    .dash-user-email { font-size: 14px; color: #767676; }
+    .btn-logout { background: none; border: 1.5px solid #e0e0e0; padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 600; color: #484848; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-logout:hover { border-color: #20f; color: #20f; }
+
+    .dash-actions { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .btn-new { display: inline-flex; align-items: center; gap: 8px; background: #20f; color: #fff; border: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-new:hover { background: #1a00d4; transform: translateY(-1px); }
+    .btn-new svg { width: 18px; height: 18px; fill: #fff; }
+
+    /* ===== ARTICLES TABLE ===== */
+    .articles-list { background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); overflow: hidden; }
+    .articles-empty { text-align: center; padding: 60px 20px; color: #767676; }
+    .articles-empty svg { width: 48px; height: 48px; fill: #d1d1d1; margin-bottom: 12px; }
+    .articles-empty p { font-size: 15px; }
+
+    .article-row { display: grid; grid-template-columns: 1fr 120px 100px 140px 160px; align-items: center; padding: 16px 24px; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; gap: 12px; }
+    .article-row:last-child { border-bottom: none; }
+    .article-row:hover { background: #faf8f6; }
+    .article-row.header-row { background: #faf8f6; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #999; }
+    .article-row.header-row:hover { background: #faf8f6; }
+
+    .article-title { font-weight: 600; font-size: 15px; }
+    .article-category { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .cat-robloxians { background: #e8f5e9; color: #2e7d32; }
+    .cat-meetings { background: #e3f2fd; color: #1565c0; }
+    .cat-voice { background: #fce4ec; color: #c62828; }
+    .cat-news { background: #fff3e0; color: #e65100; }
+    .cat-general { background: #f3e5f5; color: #6a1b9a; }
+
+    .status-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .status-dot.published { background: #4ade80; }
+    .status-dot.draft { background: #d1d1d1; }
+
+    .article-date { font-size: 13px; color: #999; }
+    .article-actions { display: flex; gap: 6px; justify-content: flex-end; }
+    .btn-action { background: none; border: 1.5px solid #e8e8e8; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: #484848; font-family: 'Inter', sans-serif; white-space: nowrap; }
+    .btn-action:hover { border-color: #20f; color: #20f; }
+    .btn-action.danger:hover { border-color: #ef4444; color: #ef4444; }
+    .btn-action.publish:hover { border-color: #4ade80; color: #16a34a; }
+
+    /* ===== MODAL ===== */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #fff; border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 32px; box-shadow: 0 16px 48px rgba(0,0,0,0.15); }
+    .modal h2 { font-family: 'ABC Ginto Nord Unlicensed Trial Bold', 'Geist', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #484848; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1.5px solid #e8e8e8; border-radius: 10px; font-size: 15px; font-family: 'Inter', sans-serif; transition: border-color 0.2s; background: #fff; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #20f; }
+    .form-group textarea { min-height: 140px; resize: vertical; }
+    .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+    .toggle-group { display: flex; align-items: center; gap: 12px; }
+    .toggle { position: relative; width: 48px; height: 26px; background: #e0e0e0; border-radius: 13px; cursor: pointer; transition: background 0.2s; border: none; padding: 0; }
+    .toggle.on { background: #20f; }
+    .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle.on::after { transform: translateX(22px); }
+    .toggle-label { font-size: 14px; font-weight: 500; color: #484848; }
+
+    .modal-actions { display: flex; gap: 12px; margin-top: 28px; }
+    .btn-save { flex: 1; background: #20f; color: #fff; border: none; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-save:hover { background: #1a00d4; }
+    .btn-save:disabled { background: #a3a3a3; cursor: not-allowed; }
+    .btn-cancel { flex: 0; background: none; border: 1.5px solid #e0e0e0; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; color: #484848; cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+    .btn-cancel:hover { border-color: #999; }
+
+    /* ===== LOADING / TOAST ===== */
+    .loading-spinner { display: flex; align-items: center; justify-content: center; padding: 40px; }
+    .spinner { width: 32px; height: 32px; border: 3px solid #e8e8e8; border-top-color: #20f; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a1a; color: #fff; padding: 14px 24px; border-radius: 12px; font-size: 14px; font-weight: 500; z-index: 2000; opacity: 0; transform: translateY(10px); transition: opacity 0.3s, transform 0.3s; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+    .toast.visible { opacity: 1; transform: translateY(0); }
+    .toast.error { background: #ef4444; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .header { padding: 0 20px; }
+      .article-row { grid-template-columns: 1fr 100px 80px auto; }
+      .article-row .article-date { display: none; }
+    }
+    @media (max-width: 640px) {
+      .article-row { grid-template-columns: 1fr auto; gap: 8px; padding: 14px 16px; }
+      .article-row .article-category, .article-row .article-date, .article-row .status-badge { display: none; }
+      .article-row.header-row { display: none; }
+      .dash-header h1 { font-size: 22px; }
+      .login-card { padding: 32px 24px; }
+      .modal { padding: 24px; margin: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <img alt="inline tv" src="data:image/svg+xml,%3Csvg viewBox='0 0 448 121' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath d='M 254.286 75.495 C 254.286 69.136 255.297 63.517 257.318 58.637 C 259.339 53.707 261.976 49.592 265.229 46.289 C 268.532 42.937 272.352 40.399 276.689 38.674 C 281.027 36.948 285.463 36.086 289.998 36.086 C 294.73 36.086 299.167 36.998 303.307 38.821 C 307.448 40.645 310.997 43.208 313.954 46.511 C 316.961 49.764 319.302 53.781 320.978 58.563 C 322.654 63.295 323.492 68.593 323.492 74.46 L 323.492 77.343 C 323.492 78.23 323.443 79.068 323.344 79.857 L 271.809 79.857 C 272.5 86.807 274.792 92.032 278.686 95.532 C 282.629 99.032 286.917 100.781 291.551 100.781 C 295.691 100.781 299.339 99.722 302.494 97.602 C 305.698 95.483 308.162 92.452 309.888 88.508 L 322.901 97.306 C 319.549 103.172 315.014 107.584 309.296 110.541 C 303.627 113.499 297.565 114.978 291.107 114.978 C 286.178 114.978 281.446 114.14 276.911 112.464 C 272.426 110.738 268.507 108.225 265.155 104.922 C 261.852 101.57 259.215 97.43 257.244 92.5 C 255.272 87.522 254.286 81.853 254.286 75.495 Z M 272.179 68.397 L 306.486 68.397 C 305.796 62.728 303.948 58.366 300.941 55.31 C 297.984 52.204 294.287 50.652 289.85 50.652 C 285.513 50.652 281.717 52.18 278.464 55.236 C 275.26 58.242 273.165 62.629 272.179 68.396 Z M 177.686 113.647 L 177.686 37.638 L 195.357 37.638 L 195.357 43.997 C 198.265 41.385 201.469 39.413 204.969 38.082 C 208.468 36.752 212.19 36.086 216.133 36.086 C 224.02 36.086 230.428 38.575 235.357 43.553 C 240.286 48.483 242.751 54.989 242.751 63.073 L 242.751 113.647 L 225.08 113.647 L 225.08 66.844 C 225.08 61.914 223.774 58.119 221.161 55.457 C 218.598 52.747 215.148 51.391 210.81 51.391 C 207.704 51.391 204.821 51.958 202.159 53.091 C 199.561 54.165 197.237 55.807 195.357 57.897 L 195.357 113.647 Z M 143.525 14.494 C 143.525 11.586 144.585 9.072 146.705 6.952 C 148.824 4.783 151.412 3.699 154.468 3.699 C 157.376 3.699 159.89 4.759 162.01 6.879 C 164.129 8.998 165.189 11.536 165.189 14.494 C 165.189 17.402 164.129 19.867 162.01 21.888 C 159.89 23.908 157.376 24.919 154.468 24.919 C 151.461 24.919 148.874 23.909 146.705 21.888 C 144.585 19.867 143.525 17.402 143.525 14.494 Z M 145.522 113.645 L 145.522 37.637 L 163.193 37.637 L 163.193 113.645 Z M 113.348 113.646 L 113.348 6.14 L 131.019 3.257 L 131.019 113.646 Z M 34.16 113.647 L 34.16 37.638 L 51.831 37.638 L 51.831 43.997 C 54.74 41.385 57.944 39.413 61.443 38.082 C 64.943 36.752 68.665 36.086 72.608 36.086 C 80.495 36.086 86.903 38.575 91.832 43.553 C 96.761 48.483 99.226 54.989 99.226 63.073 L 99.226 113.647 L 81.555 113.647 L 81.555 66.844 C 81.555 61.914 80.248 58.119 77.635 55.457 C 75.073 52.747 71.622 51.391 67.285 51.391 C 64.179 51.391 61.295 51.958 58.634 53.091 C 56.036 54.165 53.711 55.807 51.831 57.897 L 51.831 113.647 L 34.161 113.647 Z M 0 14.494 C 0 11.586 1.06 9.072 3.18 6.952 C 5.299 4.783 7.887 3.699 10.943 3.699 C 13.851 3.699 16.365 4.759 18.485 6.879 C 20.605 8.998 21.664 11.536 21.664 14.494 C 21.664 17.402 20.604 19.867 18.484 21.888 C 16.365 23.908 13.851 24.919 10.943 24.919 C 7.936 24.919 5.348 23.909 3.179 21.888 C 1.06 19.867 0 17.402 0 14.494 Z M 1.996 113.645 L 1.996 37.637 L 19.668 37.637 L 19.668 113.645 L 1.995 113.645 Z M 379.649 7.519 C 373.391 25.812 365.054 53.039 360.338 75.374 C 357.959 86.646 356.623 96.142 356.74 102.499 C 356.77 104.133 356.891 105.34 357.037 106.189 C 360.499 104.893 363.988 100.855 366.98 93.294 C 370.287 84.936 371.914 74.874 372.35 68.201 L 386.073 69.235 C 385.572 76.911 383.743 88.575 379.72 98.739 C 375.916 108.348 368.905 119.615 356.538 120.791 C 354.261 121.008 351.872 120.597 349.701 119.255 C 347.59 117.95 346.189 116.078 345.273 114.258 C 343.553 110.841 343.059 106.617 342.986 102.693 C 342.836 94.592 344.484 83.743 346.905 72.278 C 349.533 59.83 353.221 46.019 357.052 33.026 C 354.641 35.949 352.572 38.604 351.089 40.821 C 350.167 42.201 349.573 43.24 349.254 43.935 C 349.254 43.935 349.27 44.382 349.143 43.054 L 335.454 44.356 C 335.193 41.611 336.196 39.144 336.824 37.777 C 337.585 36.123 338.618 34.39 339.742 32.708 C 342.007 29.32 345.105 25.428 348.405 21.536 C 355.035 13.719 363.019 5.337 368.358 0 L 379.649 7.52 Z' fill='rgb(255,255,255)'/%3E%3Cpath d='M 42.081 0.862 L 43.355 14.252 L 1.273 18.254 L 0 4.864 Z M 50.285 0.082 C 59.68 -0.812 66.099 5.768 70.013 12.012 C 74.089 18.516 77.022 26.99 79.143 34.945 C 79.522 36.368 79.847 37.798 80.184 39.21 L 93.337 0.171 L 106.69 4.628 L 84.633 70.159 L 70.947 68.597 L 70.888 67.97 C 70.842 67.537 70.763 66.89 70.665 66.064 C 70.391 63.767 70.081 61.474 69.735 59.187 C 68.867 53.47 67.506 45.947 65.534 38.552 C 63.531 31.042 61.026 24.174 58.067 19.453 C 54.946 14.473 52.732 13.945 51.614 14.052 Z' fill='rgb(255,255,255)' transform='translate(341.5 46)'/%3E%3C/g%3E%3C/svg%3E">
+      </a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/pods/">Pods</a>
+        <a href="/staff/" class="active">Staff</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      </div>
+      <h1>Staff Portal</h1>
+      <p>Sign in with your Google account to manage articles and content for Inline TV.</p>
+      <button class="btn-google" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Sign in with Google
+      </button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="page dashboard">
+    <div class="dash-header">
+      <h1>Article Management</h1>
+      <div class="dash-user">
+        <span id="user-email" class="dash-user-email"></span>
+        <button class="btn-logout" onclick="signOut()">Sign out</button>
+      </div>
+    </div>
+
+    <div class="dash-actions">
+      <button class="btn-new" onclick="openModal()">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        New Article
+      </button>
+    </div>
+
+    <div id="articles-container" class="articles-list">
+      <div class="loading-spinner"><div class="spinner"></div></div>
+    </div>
+  </div>
+
+  <!-- ARTICLE MODAL -->
+  <div id="article-modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <h2 id="modal-title">New Article</h2>
+      <form id="article-form" onsubmit="saveArticle(event)">
+        <input type="hidden" id="article-id">
+        <div class="form-group">
+          <label for="field-title">Title</label>
+          <input type="text" id="field-title" required placeholder="Article title...">
+        </div>
+        <div class="form-group">
+          <label for="field-category">Category</label>
+          <select id="field-category" required>
+            <option value="">Select category...</option>
+            <option value="robloxians">Robloxians</option>
+            <option value="meetings">Meetings</option>
+            <option value="voice">Voice</option>
+            <option value="news">News</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="field-body">Body</label>
+          <textarea id="field-body" placeholder="Article content..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="field-image">Image URL</label>
+          <input type="url" id="field-image" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>Published</label>
+          <div class="toggle-group">
+            <button type="button" id="field-published" class="toggle" onclick="this.classList.toggle('on')"></button>
+            <span class="toggle-label" id="toggle-label">Draft</span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-save" id="btn-save">Save Article</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://qiyxxjlekhnjthuepxzt.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeXh4amxla2huanRodWVweHp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NTk2NDIsImV4cCI6MjA5NDAzNTY0Mn0.bRYA7hB5b3TZGlYJCJ06skDLEY6INGdFQztt89tIPWg';
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    let currentUser = null;
+
+    // ===== AUTH =====
+    async function initAuth() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        showDashboard(session.user);
+      }
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (session) {
+          showDashboard(session.user);
+        } else {
+          showLogin();
+        }
+      });
+    }
+
+    async function signInWithGoogle() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin + '/staff/' }
+      });
+      if (error) showToast('Sign in failed: ' + error.message, true);
+    }
+
+    async function signOut() {
+      await supabase.auth.signOut();
+      showLogin();
+    }
+
+    function showDashboard(user) {
+      currentUser = user;
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('dashboard').classList.add('visible');
+      document.getElementById('user-email').textContent = user.email;
+      loadArticles();
+    }
+
+    function showLogin() {
+      currentUser = null;
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('dashboard').classList.remove('visible');
+    }
+
+    // ===== ARTICLES =====
+    async function loadArticles() {
+      const container = document.getElementById('articles-container');
+      container.innerHTML = '<div class="loading-spinner"><div class="spinner"></div></div>';
+
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        container.innerHTML = '<div class="articles-empty"><p>Error loading articles: ' + error.message + '</p></div>';
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        container.innerHTML = '<div class="articles-empty"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg><p>No articles yet. Create your first one!</p></div>';
+        return;
+      }
+
+      let html = '<div class="article-row header-row"><span>Title</span><span>Category</span><span>Status</span><span>Created</span><span style="text-align:right">Actions</span></div>';
+      data.forEach(a => {
+        const date = new Date(a.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        html += `
+          <div class="article-row">
+            <span class="article-title">${escHtml(a.title)}</span>
+            <span><span class="article-category cat-${a.category}">${a.category}</span></span>
+            <span class="status-badge"><span class="status-dot ${a.published ? 'published' : 'draft'}"></span>${a.published ? 'Live' : 'Draft'}</span>
+            <span class="article-date">${date}</span>
+            <span class="article-actions">
+              <button class="btn-action" onclick='editArticle(${JSON.stringify(a).replace(/'/g, "&#39;")})'>Edit</button>
+              <button class="btn-action publish" onclick="togglePublish('${a.id}', ${a.published})">${a.published ? 'Unpublish' : 'Publish'}</button>
+              <button class="btn-action danger" onclick="deleteArticle('${a.id}')">Delete</button>
+            </span>
+          </div>`;
+      });
+      container.innerHTML = html;
+    }
+
+    // ===== MODAL =====
+    function openModal(article) {
+      document.getElementById('modal-title').textContent = article ? 'Edit Article' : 'New Article';
+      document.getElementById('article-id').value = article ? article.id : '';
+      document.getElementById('field-title').value = article ? article.title : '';
+      document.getElementById('field-category').value = article ? article.category : '';
+      document.getElementById('field-body').value = article ? (article.body || '') : '';
+      document.getElementById('field-image').value = article ? (article.image_url || '') : '';
+      const toggle = document.getElementById('field-published');
+      if (article && article.published) {
+        toggle.classList.add('on');
+      } else {
+        toggle.classList.remove('on');
+      }
+      updateToggleLabel();
+      document.getElementById('article-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('article-modal').classList.remove('active');
+      document.getElementById('article-form').reset();
+      document.getElementById('field-published').classList.remove('on');
+      updateToggleLabel();
+    }
+
+    function editArticle(article) {
+      openModal(article);
+    }
+
+    function updateToggleLabel() {
+      const on = document.getElementById('field-published').classList.contains('on');
+      document.getElementById('toggle-label').textContent = on ? 'Published' : 'Draft';
+    }
+
+    // observe toggle clicks
+    document.getElementById('field-published').addEventListener('click', () => setTimeout(updateToggleLabel, 10));
+
+    // ===== SAVE =====
+    async function saveArticle(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      const id = document.getElementById('article-id').value;
+      const payload = {
+        title: document.getElementById('field-title').value.trim(),
+        category: document.getElementById('field-category').value,
+        body: document.getElementById('field-body').value.trim() || null,
+        image_url: document.getElementById('field-image').value.trim() || null,
+        published: document.getElementById('field-published').classList.contains('on'),
+        author_email: currentUser.email
+      };
+
+      let error;
+      if (id) {
+        ({ error } = await supabase.from('articles').update(payload).eq('id', id));
+      } else {
+        ({ error } = await supabase.from('articles').insert(payload));
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Save Article';
+
+      if (error) {
+        showToast('Error saving: ' + error.message, true);
+        return;
+      }
+
+      showToast(id ? 'Article updated!' : 'Article created!');
+      closeModal();
+      loadArticles();
+    }
+
+    // ===== TOGGLE PUBLISH =====
+    async function togglePublish(id, currentState) {
+      const { error } = await supabase.from('articles').update({ published: !currentState }).eq('id', id);
+      if (error) {
+        showToast('Error: ' + error.message, true);
+        return;
+      }
+      showToast(currentState ? 'Article unpublished' : 'Article published!');
+      loadArticles();
+    }
+
+    // ===== DELETE =====
+    async function deleteArticle(id) {
+      if (!confirm('Are you sure you want to delete this article?')) return;
+      const { error } = await supabase.from('articles').delete().eq('id', id);
+      if (error) {
+        showToast('Error: ' + error.message, true);
+        return;
+      }
+      showToast('Article deleted');
+      loadArticles();
+    }
+
+    // ===== TOAST =====
+    function showToast(msg, isError) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast visible' + (isError ? ' error' : '');
+      setTimeout(() => { t.className = 'toast'; }, 3000);
+    }
+
+    // ===== UTILS =====
+    function escHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    // ===== INIT =====
+    initAuth();
+  </script>
+</body>
+</html>
