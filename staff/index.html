@@ -277,7 +277,16 @@
       showLogin();
     }
 
+    const ALLOWED_DOMAIN = 'cirya.co';
+
     function showDashboard(user) {
+      const email = user.email || '';
+      if (!email.endsWith('@' + ALLOWED_DOMAIN)) {
+        supabase.auth.signOut();
+        showLogin();
+        showToast('Access denied — only @' + ALLOWED_DOMAIN + ' accounts can sign in.', true);
+        return;
+      }
       currentUser = user;
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('dashboard').classList.add('visible');

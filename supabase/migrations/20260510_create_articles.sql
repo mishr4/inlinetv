@@ -19,12 +19,12 @@ CREATE POLICY "Public can read published articles"
   ON articles FOR SELECT
   USING (published = true);
 
--- Authenticated staff can do everything
+-- Only @cirya.co staff can manage articles
 CREATE POLICY "Staff can manage articles"
   ON articles FOR ALL
   TO authenticated
-  USING (true)
-  WITH CHECK (true);
+  USING (auth.jwt() ->> 'email' LIKE '%@cirya.co')
+  WITH CHECK (auth.jwt() ->> 'email' LIKE '%@cirya.co');
 
 -- Auto-update updated_at
 CREATE OR REPLACE FUNCTION update_updated_at()
