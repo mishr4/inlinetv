@@ -46,8 +46,8 @@ INSERT INTO articles (category, title, body, image_url, published) VALUES
    'Inline TV is officially live! Our brand-new streaming platform brings you original shows, live broadcasts, and on-demand content — all in one place. Built from the ground up by the TMC Media team.',
    'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=450&fit=crop', true),
 
-  ('robloxians', 'RoTV Pro Launches with Studio Tools for Creators',
-   'The next generation of Roblox television is here. RoTV Pro gives creators a full suite of studio tools to produce, broadcast, and monetize their shows inside the Roblox ecosystem.',
+  ('robloxians', 'Inline Studios Launches Creator Tools for Roblox',
+   'The next generation of Roblox content creation is here. Inline Studios gives creators a full suite of tools to produce, broadcast, and monetize their shows inside the Roblox ecosystem.',
    'https://images.unsplash.com/photo-1616588589676-62b3d4ff6643?w=800&h=450&fit=crop', true),
 
   ('meetings', 'Behind the Scenes: Building an App from Scratch',

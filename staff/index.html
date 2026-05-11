@@ -265,11 +265,21 @@
     }
 
     async function signInWithGoogle() {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: window.location.origin + '/staff/' }
-      });
-      if (error) showToast('Sign in failed: ' + error.message, true);
+      try {
+        const { data, error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: { redirectTo: window.location.origin + '/staff/' }
+        });
+        if (error) {
+          console.error('OAuth error:', error);
+          showToast('Sign in failed: ' + error.message, true);
+        } else if (data?.url) {
+          window.location.href = data.url;
+        }
+      } catch (e) {
+        console.error('Sign in exception:', e);
+        showToast('Sign in failed: ' + e.message, true);
+      }
     }
 
     async function signOut() {
