@@ -40,8 +40,28 @@ CREATE TRIGGER articles_updated_at
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at();
 
--- Seed with the existing stories from the Framer design
-INSERT INTO articles (category, title, published) VALUES
-  ('robloxians', 'RoTV Pro comes out', true),
-  ('meetings', 'Is it difficult to make an app?', true),
-  ('voice', 'Bixby Vs. Google', true);
+-- Seed with stories
+INSERT INTO articles (category, title, body, image_url, published) VALUES
+  ('news', 'Inline TV Launches New Streaming Platform',
+   'Inline TV is officially live! Our brand-new streaming platform brings you original shows, live broadcasts, and on-demand content — all in one place. Built from the ground up by the TMC Media team.',
+   'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&h=450&fit=crop', true),
+
+  ('robloxians', 'RoTV Pro Launches with Studio Tools for Creators',
+   'The next generation of Roblox television is here. RoTV Pro gives creators a full suite of studio tools to produce, broadcast, and monetize their shows inside the Roblox ecosystem.',
+   'https://images.unsplash.com/photo-1616588589676-62b3d4ff6643?w=800&h=450&fit=crop', true),
+
+  ('meetings', 'Behind the Scenes: Building an App from Scratch',
+   'Our dev team walks you through the journey of building the Inline TV app — from initial wireframes and tech stack decisions to launch day. Spoiler: it was harder than we thought.',
+   'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop', true),
+
+  ('voice', 'Voice Wars: Bixby vs. Google Assistant in 2026',
+   'We put Samsung Bixby and Google Assistant head-to-head in a series of real-world tasks. Which AI voice assistant actually gets things done? The results might surprise you.',
+   'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=800&h=450&fit=crop', true),
+
+  ('news', 'TMC Media Expands into Podcast Network',
+   'TMC Media announces the launch of its dedicated podcast division. With three flagship shows already in production, the network aims to become a go-to destination for audio content.',
+   'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=800&h=450&fit=crop', true),
+
+  ('general', 'The Future of Independent Media in a Streaming World',
+   'As major platforms battle for subscribers, independent media outlets like Inline TV are carving out a niche. We explore what it takes to compete — and why authenticity wins.',
+   'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=800&h=450&fit=crop', true);
