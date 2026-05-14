@@ -10,17 +10,17 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { -webkit-font-smoothing: antialiased; }
-    body { background: #fef6f0; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; padding-top: 58px; }
+    body { background: #fef6f0; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; padding-top: 44px; }
     a { text-decoration: none; color: inherit; }
     button { font-family: inherit; }
 
     /* TMC top bar */
-    .tmc-bar { position: fixed; top: 0; left: 0; right: 0; height: 58px; background: #000; z-index: 1000; display: flex; align-items: center; }
+    .tmc-bar { position: fixed; top: 0; left: 0; right: 0; height: 44px; background: #000; z-index: 1000; display: flex; align-items: center; }
     .tmc-bar a { display: block; }
-    .tmc-bar img { display: block; height: 58px; width: auto; }
+    .tmc-bar img { display: block; height: 44px; width: auto; }
 
     /* Inline header */
-    .header { background: #20f; height: 64px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 58px; z-index: 100; }
+    .header { background: #20f; height: 64px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 44px; z-index: 100; }
     .header-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .logo { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
     .logo .tv { opacity: 0.7; }
@@ -31,7 +31,7 @@
     .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px 60px; }
 
     /* Login */
-    .login-wrap { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 122px); padding: 24px; }
+    .login-wrap { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 108px); padding: 24px; }
     .login-card { background: #fff; border-radius: 20px; padding: 48px 40px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
     .login-icon { width: 64px; height: 64px; margin: 0 auto 20px; background: #f0edff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
     .login-card h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
@@ -322,17 +322,24 @@
     </div>
 
     <div class="toolbar">
-      <h4>Add a block</h4>
+      <h4>Layout</h4>
+      <button class="tool-btn" data-add="hero"><span class="ico">🦸</span> Hero</button>
+      <button class="tool-btn" data-add="section"><span class="ico">▥</span> Section</button>
+      <button class="tool-btn" data-add="columns"><span class="ico">▤</span> Columns</button>
+      <button class="tool-btn" data-add="button"><span class="ico">🔘</span> Button</button>
+      <button class="tool-btn" data-add="spacer"><span class="ico">↕</span> Spacer</button>
+      <button class="tool-btn" data-add="divider"><span class="ico">―</span> Divider</button>
+      <h4>Content</h4>
       <button class="tool-btn" data-add="heading"><span class="ico">H</span> Heading</button>
       <button class="tool-btn" data-add="text"><span class="ico">¶</span> Text</button>
       <button class="tool-btn" data-add="image"><span class="ico">🖼️</span> Image</button>
-      <button class="tool-btn" data-add="code"><span class="ico">{ }</span> Code</button>
-      <button class="tool-btn" data-add="callout"><span class="ico">💡</span> Callout</button>
       <button class="tool-btn" data-add="quote"><span class="ico">"</span> Quote</button>
+      <button class="tool-btn" data-add="callout"><span class="ico">💡</span> Callout</button>
       <button class="tool-btn" data-add="list"><span class="ico">•</span> List</button>
+      <h4>Data</h4>
+      <button class="tool-btn" data-add="code"><span class="ico">{ }</span> Code</button>
       <button class="tool-btn" data-add="table"><span class="ico">▦</span> Table</button>
       <button class="tool-btn" data-add="chart"><span class="ico">📊</span> Chart</button>
-      <button class="tool-btn" data-add="divider"><span class="ico">―</span> Divider</button>
     </div>
 
     <div id="blocks-area" class="blocks-area">
@@ -572,11 +579,11 @@
         const date = new Date(p.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         html += '<div class="row pages-row">'
           + '<span class="title">' + esc(p.title) + '</span>'
-          + '<span class="slug">/p/?page=' + esc(p.slug) + '</span>'
+          + '<span class="slug">/' + esc(p.slug) + '</span>'
           + '<span class="badge"><span class="dot ' + (p.published ? 'live' : 'draft') + '"></span>' + (p.published ? 'Live' : 'Draft') + '</span>'
           + '<span class="date">' + date + '</span>'
           + '<span class="actions">'
-          + (p.published ? '<a class="btn-a" href="/p/?page=' + encodeURIComponent(p.slug) + '" target="_blank">View</a>' : '')
+          + (p.published ? '<a class="btn-a" href="/' + encodeURIComponent(p.slug) + '" target="_blank">View</a>' : '')
           + '<button class="btn-a" data-edit-page="' + p.id + '">Edit</button>'
           + '<button class="btn-a publish" data-pub-page="' + p.id + '">' + (p.published ? 'Unpub' : 'Publish') + '</button>'
           + '<button class="btn-a danger" data-del-page="' + p.id + '">Delete</button>'
@@ -631,7 +638,7 @@
     function updatePreviewLink() {
       const slug = $('pg-slug').value.trim();
       const link = $('preview-link');
-      if (slug) { link.href = '/p/?page=' + encodeURIComponent(slug); link.classList.remove('disabled'); }
+      if (slug) { link.href = '/' + encodeURIComponent(slug); link.classList.remove('disabled'); }
       else { link.href = '#'; link.classList.add('disabled'); }
     }
 
@@ -677,13 +684,17 @@
         list: { ordered: false, items: [''] },
         table: { rows: [['Header 1','Header 2','Header 3'], ['','','']] },
         chart: { title: '', bars: [{ label: 'Item A', value: 50 }] },
-        divider: {}
+        divider: {},
+        hero: { title: 'Welcome', subtitle: 'A short tagline', background: '#20f', textColor: '#ffffff', ctaText: 'Get started', ctaLink: '#', ctaBackground: '#ffffff', ctaColor: '#2200ff' },
+        section: { background: '#fafafa', textColor: '#1a1a1a', padding: 56, blocks: [] },
+        columns: { count: 2, columns: [{ title: 'Column 1', text: '', background: '#fafafa' }, { title: 'Column 2', text: '', background: '#fafafa' }] },
+        button: { text: 'Click me', link: '#', style: 'primary', align: 'center' },
+        spacer: { height: 40 }
       };
       pageBlocks.push({ type, data: defaults[type] });
       renderBlocks();
-      // Auto-open editor on the new block (last one)
       const idx = pageBlocks.length - 1;
-      if (type !== 'divider') setTimeout(() => toggleEditBlock(idx), 50);
+      if (type !== 'divider' && type !== 'spacer') setTimeout(() => toggleEditBlock(idx), 50);
     }
 
     function deleteBlock(idx) {
@@ -800,6 +811,52 @@
         }
         case 'divider':
           return '<hr class="divider-line">';
+        case 'hero': {
+          const bg = d.background || '#20f';
+          const c = d.textColor || '#fff';
+          const bgIsImg = bg && (bg.indexOf('http') === 0 || bg.indexOf('/') === 0);
+          const bgStyle = bgIsImg
+            ? 'background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(\'' + esc(bg) + '\');background-size:cover;background-position:center;'
+            : 'background:' + esc(bg) + ';';
+          let h = '<div style="' + bgStyle + 'color:' + esc(c) + ';padding:40px 24px;border-radius:8px;text-align:center;">';
+          h += '<div style="font-size:24px;font-weight:800;line-height:1.2;margin-bottom:8px;">' + esc(d.title || 'Hero title') + '</div>';
+          if (d.subtitle) h += '<div style="font-size:14px;opacity:0.85;margin-bottom:14px;">' + esc(d.subtitle) + '</div>';
+          if (d.ctaText) h += '<span style="display:inline-block;padding:8px 18px;background:' + esc(d.ctaBackground || '#fff') + ';color:' + esc(d.ctaColor || '#20f') + ';border-radius:8px;font-weight:700;font-size:13px;">' + esc(d.ctaText) + '</span>';
+          return h + '</div>';
+        }
+        case 'section': {
+          const subBlocks = d.blocks || [];
+          let h = '<div style="background:' + esc(d.background || '#fafafa') + ';color:' + esc(d.textColor || '#1a1a1a') + ';padding:20px;border-radius:8px;border:1px dashed #d0d0d0;">';
+          h += '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#a3a3a3;margin-bottom:8px;font-weight:700;">Section · ' + subBlocks.length + ' nested block' + (subBlocks.length !== 1 ? 's' : '') + '</div>';
+          if (subBlocks.length === 0) h += '<em style="color:#a3a3a3;font-size:13px;">Click Edit to add nested content</em>';
+          else h += subBlocks.slice(0, 3).map(sb => '<div style="font-size:13px;color:#666;margin:2px 0;">• ' + esc(sb.type) + '</div>').join('') + (subBlocks.length > 3 ? '<div style="font-size:12px;color:#a3a3a3;">…and ' + (subBlocks.length - 3) + ' more</div>' : '');
+          return h + '</div>';
+        }
+        case 'columns': {
+          const cols = d.columns || [];
+          const count = d.count || cols.length || 2;
+          let h = '<div style="display:grid;grid-template-columns:repeat(' + count + ',1fr);gap:10px;">';
+          cols.forEach(col => {
+            h += '<div style="background:' + esc(col.background || '#fafafa') + ';padding:12px;border-radius:8px;font-size:13px;">';
+            h += '<strong>' + esc(col.title || 'Column') + '</strong>';
+            if (col.text) h += '<div style="color:#666;font-size:12px;margin-top:4px;line-height:1.4;">' + esc(col.text.substring(0, 100)) + (col.text.length > 100 ? '…' : '') + '</div>';
+            h += '</div>';
+          });
+          return h + '</div>';
+        }
+        case 'button': {
+          const style = d.style || 'primary';
+          const align = d.align || 'center';
+          const styleMap = {
+            primary: 'background:#20f;color:#fff;',
+            secondary: 'background:#fff;color:#20f;border:2px solid #20f;',
+            dark: 'background:#1a1a1a;color:#fff;',
+            ghost: 'background:transparent;color:#20f;'
+          };
+          return '<div style="text-align:' + esc(align) + ';"><span style="display:inline-block;padding:10px 24px;border-radius:10px;font-weight:700;font-size:14px;' + styleMap[style] + '">' + esc(d.text || 'Button') + '</span></div>';
+        }
+        case 'spacer':
+          return '<div style="background:repeating-linear-gradient(45deg,#f8f8f8,#f8f8f8 8px,#f0f0f0 8px,#f0f0f0 16px);border-radius:8px;height:' + (d.height || 40) + 'px;display:flex;align-items:center;justify-content:center;color:#a3a3a3;font-size:12px;font-weight:600;">SPACER · ' + (d.height || 40) + 'px</div>';
       }
       return '';
     }
@@ -863,6 +920,78 @@
           html += '<div class="btn-row"><button class="btn-done" data-done>Done</button></div>';
           return html;
         }
+        case 'hero':
+          return '<div class="field"><label>Hero title</label><input type="text" data-bind="title" value="' + esc(d.title) + '" placeholder="Welcome to my page"></div>'
+            + '<div class="field"><label>Subtitle</label><textarea data-bind="subtitle" rows="2">' + esc(d.subtitle) + '</textarea></div>'
+            + '<div class="field-row">'
+            + '<div class="field"><label>Background (color or image URL)</label><div style="display:flex;gap:6px;align-items:center;"><input type="color" data-bind-color="background" value="' + (d.background && d.background.startsWith('#') ? esc(d.background) : '#2200ff') + '" style="width:42px;height:38px;padding:2px;cursor:pointer;"><input type="text" data-bind="background" value="' + esc(d.background) + '" placeholder="#20f or https://..." style="flex:1;"></div></div>'
+            + '<div class="field"><label>Text color</label><div style="display:flex;gap:6px;align-items:center;"><input type="color" data-bind-color="textColor" value="' + esc(d.textColor || '#ffffff') + '" style="width:42px;height:38px;padding:2px;cursor:pointer;"><input type="text" data-bind="textColor" value="' + esc(d.textColor) + '" style="flex:1;"></div></div>'
+            + '</div>'
+            + '<div class="field-row">'
+            + '<div class="field"><label>CTA button text (optional)</label><input type="text" data-bind="ctaText" value="' + esc(d.ctaText) + '"></div>'
+            + '<div class="field"><label>CTA link</label><input type="text" data-bind="ctaLink" value="' + esc(d.ctaLink) + '" placeholder="/somewhere or https://..."></div>'
+            + '</div>'
+            + '<div class="field-row">'
+            + '<div class="field"><label>CTA background</label><div style="display:flex;gap:6px;align-items:center;"><input type="color" data-bind-color="ctaBackground" value="' + esc(d.ctaBackground || '#ffffff') + '" style="width:42px;height:38px;padding:2px;cursor:pointer;"><input type="text" data-bind="ctaBackground" value="' + esc(d.ctaBackground) + '" style="flex:1;"></div></div>'
+            + '<div class="field"><label>CTA text color</label><div style="display:flex;gap:6px;align-items:center;"><input type="color" data-bind-color="ctaColor" value="' + esc(d.ctaColor || '#2200ff') + '" style="width:42px;height:38px;padding:2px;cursor:pointer;"><input type="text" data-bind="ctaColor" value="' + esc(d.ctaColor) + '" style="flex:1;"></div></div>'
+            + '</div>'
+            + '<div class="btn-row"><button class="btn-done" data-done>Done</button></div>';
+        case 'section': {
+          const subBlocks = d.blocks || [];
+          let html = '<div class="field-row">'
+            + '<div class="field"><label>Background color</label><div style="display:flex;gap:6px;align-items:center;"><input type="color" data-bind-color="background" value="' + esc(d.background || '#fafafa') + '" style="width:42px;height:38px;padding:2px;cursor:pointer;"><input type="text" data-bind="background" value="' + esc(d.background) + '" style="flex:1;"></div></div>'
+            + '<div class="field"><label>Text color</label><div style="display:flex;gap:6px;align-items:center;"><input type="color" data-bind-color="textColor" value="' + esc(d.textColor || '#1a1a1a') + '" style="width:42px;height:38px;padding:2px;cursor:pointer;"><input type="text" data-bind="textColor" value="' + esc(d.textColor) + '" style="flex:1;"></div></div>'
+            + '<div class="field" style="max-width:120px"><label>Padding (px)</label><input type="number" data-bind-num="padding" value="' + (d.padding != null ? d.padding : 56) + '" min="0" max="200"></div>'
+            + '</div>';
+          html += '<div class="field"><label>Nested blocks (' + subBlocks.length + ')</label>';
+          html += '<div style="background:#f8f8f8;border-radius:8px;padding:10px;">';
+          if (!subBlocks.length) html += '<em style="color:#a3a3a3;font-size:13px;">No nested blocks yet</em>';
+          else html += subBlocks.map((sb, si) => '<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#fff;margin-bottom:4px;border-radius:6px;font-size:13px;"><span>' + (si+1) + '. ' + esc(sb.type) + (sb.data && sb.data.text ? ' — ' + esc(sb.data.text.substring(0, 40)) : '') + '</span><button class="block-btn danger" data-section-rm="' + si + '">×</button></div>').join('');
+          html += '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;">';
+          ['heading', 'text', 'image', 'button', 'divider'].forEach(t => {
+            html += '<button class="block-btn" data-section-add="' + t + '">+ ' + t + '</button>';
+          });
+          html += '</div></div></div>';
+          html += '<div class="btn-row"><button class="btn-done" data-done>Done</button></div>';
+          return html;
+        }
+        case 'columns': {
+          const cols = d.columns || [];
+          let html = '<div class="field" style="max-width:200px"><label>Number of columns</label><select data-bind-num="count">';
+          [2, 3, 4].forEach(n => html += '<option value="' + n + '"' + (d.count === n ? ' selected' : '') + '>' + n + '</option>');
+          html += '</select></div>';
+          html += '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;">';
+          cols.forEach((col, ci) => {
+            html += '<div style="background:#fafafa;border:1px solid #ececec;border-radius:8px;padding:12px;">';
+            html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#999;margin-bottom:6px;">Column ' + (ci+1) + '</div>';
+            html += '<div class="field-row">';
+            html += '<div class="field"><label>Title</label><input type="text" data-col-field="title" data-col-idx="' + ci + '" value="' + esc(col.title) + '"></div>';
+            html += '<div class="field" style="max-width:150px"><label>BG</label><input type="color" data-col-field="background" data-col-idx="' + ci + '" value="' + esc(col.background || '#fafafa') + '" style="height:38px;width:100%;padding:2px;cursor:pointer;"></div>';
+            html += '</div>';
+            html += '<div class="field"><label>Text</label><textarea data-col-field="text" data-col-idx="' + ci + '" rows="3">' + esc(col.text) + '</textarea></div>';
+            html += '</div>';
+          });
+          html += '</div>';
+          html += '<div class="btn-row"><button class="btn-done" data-done>Done</button></div>';
+          return html;
+        }
+        case 'button':
+          return '<div class="field-row">'
+            + '<div class="field"><label>Button text</label><input type="text" data-bind="text" value="' + esc(d.text) + '"></div>'
+            + '<div class="field"><label>Link URL</label><input type="text" data-bind="link" value="' + esc(d.link) + '" placeholder="/somewhere or https://..."></div>'
+            + '</div>'
+            + '<div class="field-row">'
+            + '<div class="field"><label>Style</label><select data-bind="style">'
+            + ['primary','secondary','dark','ghost'].map(s => '<option value="' + s + '"' + (d.style === s ? ' selected' : '') + '>' + s + '</option>').join('')
+            + '</select></div>'
+            + '<div class="field"><label>Alignment</label><select data-bind="align">'
+            + ['left','center','right'].map(a => '<option value="' + a + '"' + (d.align === a ? ' selected' : '') + '>' + a + '</option>').join('')
+            + '</select></div>'
+            + '</div>'
+            + '<div class="btn-row"><button class="btn-done" data-done>Done</button></div>';
+        case 'spacer':
+          return '<div class="field" style="max-width:240px"><label>Height (px)</label><input type="number" data-bind-num="height" value="' + (d.height != null ? d.height : 40) + '" min="0" max="500"></div>'
+            + '<div class="btn-row"><button class="btn-done" data-done>Done</button></div>';
       }
       return '<em>Nothing to edit</em>';
     }
@@ -939,6 +1068,85 @@
         const wasEditing = el.classList.contains('editing');
         renderBlocks();
         if (wasEditing) toggleEditBlock(i);
+      });
+
+      // Color picker pairs (color input syncs with text input via shared data-bind / data-bind-color)
+      el.querySelectorAll('[data-bind-color]').forEach(picker => {
+        const key = picker.dataset.bindColor;
+        picker.addEventListener('input', () => {
+          block.data[key] = picker.value;
+          const partner = el.querySelector('[data-bind="' + key + '"]');
+          if (partner) partner.value = picker.value;
+        });
+      });
+      // When text changes, sync color picker too (if hex)
+      el.querySelectorAll('[data-bind]').forEach(inp => {
+        const key = inp.dataset.bind;
+        const partner = el.querySelector('[data-bind-color="' + key + '"]');
+        if (partner) {
+          inp.addEventListener('input', () => {
+            if (/^#[0-9a-fA-F]{3,8}$/.test(inp.value)) partner.value = inp.value;
+          });
+        }
+      });
+
+      // Number inputs (count, padding, height)
+      el.querySelectorAll('[data-bind-num]').forEach(inp => {
+        const key = inp.dataset.bindNum;
+        const upd = () => {
+          block.data[key] = parseInt(inp.value) || 0;
+          // For columns count, also resize the columns array
+          if (key === 'count' && block.type === 'columns') {
+            const target = parseInt(inp.value) || 2;
+            const cols = block.data.columns || [];
+            while (cols.length < target) cols.push({ title: 'Column ' + (cols.length + 1), text: '', background: '#fafafa' });
+            while (cols.length > target) cols.pop();
+            block.data.columns = cols;
+            const wasEditing = el.classList.contains('editing');
+            renderBlocks();
+            if (wasEditing) toggleEditBlock(i);
+            return;
+          }
+        };
+        inp.addEventListener('input', upd);
+        inp.addEventListener('change', upd);
+      });
+
+      // Columns field bindings
+      el.querySelectorAll('[data-col-idx]').forEach(inp => {
+        const field = inp.dataset.colField;
+        const ci = parseInt(inp.dataset.colIdx);
+        inp.addEventListener('input', () => {
+          if (!block.data.columns[ci]) block.data.columns[ci] = {};
+          block.data.columns[ci][field] = inp.value;
+        });
+      });
+
+      // Section nested blocks
+      el.querySelectorAll('[data-section-add]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const type = btn.dataset.sectionAdd;
+          const defaults = {
+            heading: { level: 2, text: '' },
+            text: { text: '' },
+            image: { url: '', alt: '', caption: '' },
+            button: { text: 'Click me', link: '#', style: 'primary', align: 'center' },
+            divider: {}
+          };
+          block.data.blocks = block.data.blocks || [];
+          block.data.blocks.push({ type, data: defaults[type] });
+          const wasEditing = el.classList.contains('editing');
+          renderBlocks();
+          if (wasEditing) toggleEditBlock(i);
+        });
+      });
+      el.querySelectorAll('[data-section-rm]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          block.data.blocks.splice(parseInt(btn.dataset.sectionRm), 1);
+          const wasEditing = el.classList.contains('editing');
+          renderBlocks();
+          if (wasEditing) toggleEditBlock(i);
+        });
       });
 
       const doneBtn = el.querySelector('[data-done]');

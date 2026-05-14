@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/staff/:path*", "destination": "/staff/index.html" },
+    { "source": "/pods/:path*", "destination": "/pods/index.html" },
+    { "source": "/p/:path*", "destination": "/p/index.html" },
+    { "source": "/((?!api|_next|images|favicon).*\\..+$)", "destination": "/$1" },
+    { "source": "/((?!staff|pods|p|api|_next|images).*)", "destination": "/page.html" }
+  ]
+}

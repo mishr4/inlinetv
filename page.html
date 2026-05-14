@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading… — Inline TV</title>
+  <link href="/images/nHNJSMT3WlUndT1kg7386H9TU.png" rel="icon" media="(prefers-color-scheme: light)">
+  <link href="/images/4pHoiEYsUvFiyylIdXFWojcXw.png" rel="icon" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { background: #fff; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; padding-top: 44px; }
+    a { color: #20f; }
+
+    .tmc-bar { position: fixed; top: 0; left: 0; right: 0; height: 44px; background: #000; z-index: 10000; display: flex; align-items: center; }
+    .tmc-bar img { display: block; height: 44px; width: auto; }
+
+    .header { background: #20f; height: 56px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 44px; z-index: 100; }
+    .header-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .header-logo { font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
+    .header-logo .tv { opacity: 0.7; }
+    .header-nav { display: flex; gap: 20px; }
+    .header-nav a { color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 500; text-decoration: none; transition: color .2s; }
+    .header-nav a:hover { color: #fff; }
+
+    .page-cover { width: 100%; max-height: 420px; object-fit: cover; display: block; animation: fadeIn .6s ease; }
+
+    .page-meta { max-width: 760px; margin: 0 auto; padding: 56px 24px 32px; }
+    .page-title { font-size: 44px; font-weight: 800; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.5px; }
+    .page-description { font-size: 19px; color: #767676; line-height: 1.55; margin-bottom: 16px; }
+    .page-date { font-size: 13px; color: #a3a3a3; }
+    .page-divider { max-width: 760px; height: 1px; background: #f0f0f0; margin: 0 auto 32px; }
+
+    .blocks-wrap { padding-bottom: 80px; }
+
+    /* Block defaults */
+    .b { animation: fadeUp .5s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Constrained content */
+    .b-text-wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 24px; }
+
+    .b-h1 { font-size: 38px; font-weight: 800; line-height: 1.2; margin-top: 32px; letter-spacing: -0.3px; }
+    .b-h2 { font-size: 28px; font-weight: 700; line-height: 1.3; margin-top: 28px; }
+    .b-h3 { font-size: 20px; font-weight: 700; line-height: 1.4; margin-top: 20px; }
+    .b-p { font-size: 17px; line-height: 1.75; color: #2a2a2a; }
+    .b-p strong { font-weight: 700; }
+    .b-p em { font-style: italic; }
+    .b-p code { background: #f4f4f5; padding: 2px 6px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+    .b-p a { color: #20f; text-decoration: underline; }
+
+    .b-img { display: block; border-radius: 12px; max-width: 100%; height: auto; }
+    .b-img-caption { font-size: 13px; color: #a3a3a3; text-align: center; margin-top: 10px; }
+
+    .b-code { background: #1a1a1a; color: #e8e8e8; padding: 22px 26px; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.7; overflow-x: auto; position: relative; }
+    .b-code .lang { position: absolute; top: 10px; right: 14px; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: .5px; font-weight: 600; }
+
+    .b-callout { padding: 20px 24px; border-radius: 12px; border-left: 4px solid; font-size: 16px; line-height: 1.65; }
+    .b-callout.info { background: #eef4ff; border-color: #20f; color: #1a3a6b; }
+    .b-callout.warning { background: #fff8ee; border-color: #f5a623; color: #6b4a1a; }
+    .b-callout.tip { background: #eefff4; border-color: #22c55e; color: #1a6b3a; }
+    .b-callout.error { background: #fff0f0; border-color: #ef4444; color: #6b1a1a; }
+    .b-callout strong { display: block; margin-bottom: 6px; font-weight: 700; }
+
+    .b-divider { border: none; border-top: 1px solid #e8e8e8; max-width: 760px; margin: 16px auto; padding: 0 24px; }
+
+    .b-quote { border-left: 4px solid #20f; padding: 12px 28px; font-style: italic; font-size: 20px; line-height: 1.6; color: #484848; background: linear-gradient(90deg, #f8f6ff, transparent); border-radius: 0 12px 12px 0; }
+
+    .b-list { padding-left: 24px; font-size: 17px; line-height: 1.8; color: #2a2a2a; }
+    .b-list li { margin-bottom: 6px; }
+
+    .b-table { width: 100%; border-collapse: collapse; border-radius: 12px; overflow: hidden; font-size: 15px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .b-table th { background: #faf8f6; font-weight: 700; text-align: left; padding: 14px 18px; border-bottom: 2px solid #ececec; }
+    .b-table td { padding: 12px 18px; border-bottom: 1px solid #f3f3f3; }
+    .b-table tr:last-child td { border-bottom: none; }
+
+    .b-chart { background: #fff; border-radius: 14px; padding: 28px 32px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; }
+    .b-chart .chart-title { font-weight: 700; font-size: 17px; margin-bottom: 20px; }
+    .chart-bar { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+    .chart-bar-label { width: 120px; font-size: 14px; color: #484848; text-align: right; flex-shrink: 0; font-weight: 500; }
+    .chart-bar-track { flex: 1; height: 30px; background: #f0f0f0; border-radius: 6px; overflow: hidden; }
+    .chart-bar-fill { height: 100%; background: linear-gradient(90deg, #20f, #6644ff); border-radius: 6px; transition: width 1.2s cubic-bezier(.2,.8,.2,1); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: #fff; font-size: 13px; font-weight: 700; min-width: 0; }
+
+    /* SECTION (with custom background) */
+    .b-section { padding: 56px 24px; }
+    .b-section-inner { max-width: 1200px; margin: 0 auto; }
+
+    /* HERO */
+    .b-hero { padding: 100px 24px; text-align: center; position: relative; overflow: hidden; }
+    .b-hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .b-hero h1 { font-size: 56px; font-weight: 800; line-height: 1.1; margin-bottom: 18px; letter-spacing: -1px; }
+    .b-hero p { font-size: 20px; line-height: 1.55; opacity: .85; margin-bottom: 28px; }
+    .b-hero .hero-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 30px; border-radius: 12px; font-weight: 700; font-size: 16px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .b-hero .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* COLUMNS */
+    .b-columns { display: grid; gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .b-columns.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .b-columns.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .b-columns.cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .b-column { padding: 24px; background: #fafafa; border-radius: 12px; }
+    .b-column h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .b-column p { font-size: 15px; line-height: 1.6; color: #484848; }
+
+    /* BUTTON */
+    .b-button-wrap { text-align: center; }
+    .b-button { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .b-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,0,255,0.2); }
+    .b-button.style-primary { background: #20f; color: #fff; }
+    .b-button.style-secondary { background: #fff; color: #20f; border: 2px solid #20f; }
+    .b-button.style-dark { background: #1a1a1a; color: #fff; }
+    .b-button.style-ghost { background: transparent; color: #20f; }
+
+    /* SPACER */
+    .b-spacer {}
+
+    /* Loading & 404 */
+    .page-loading, .page-404 { text-align: center; padding: 140px 24px; }
+    .spinner { width: 38px; height: 38px; border: 3px solid #ececec; border-top-color: #20f; border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 18px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .page-loading p { color: #767676; font-size: 15px; }
+    .page-404 h1 { font-size: 88px; color: #20f; margin-bottom: 16px; font-weight: 800; letter-spacing: -2px; }
+    .page-404 p { color: #767676; font-size: 17px; margin-bottom: 28px; }
+    .page-404 a { display: inline-block; background: #20f; color: #fff; padding: 14px 28px; border-radius: 12px; font-weight: 700; transition: transform .2s; }
+    .page-404 a:hover { transform: translateY(-2px); }
+
+    .page-toc { max-width: 760px; margin: 0 auto 32px; padding: 0 24px; }
+    .page-toc-card { background: #f9f9ff; border: 1px solid #e8e8ff; border-radius: 12px; padding: 18px 22px; }
+    .page-toc-card h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: #20f; font-weight: 700; margin-bottom: 10px; }
+    .page-toc-card ul { list-style: none; padding: 0; }
+    .page-toc-card li { margin-bottom: 4px; }
+    .page-toc-card a { color: #484848; font-size: 14px; text-decoration: none; transition: color .2s; }
+    .page-toc-card a:hover { color: #20f; }
+    .page-toc-card .toc-h3 { padding-left: 16px; }
+
+    @media (max-width: 768px) {
+      .page-title { font-size: 32px; }
+      .page-meta { padding: 36px 16px 24px; }
+      .b-text-wrap { padding: 0 16px 20px; }
+      .b-h1 { font-size: 28px; }
+      .b-h2 { font-size: 22px; }
+      .b-h3 { font-size: 18px; }
+      .b-p { font-size: 16px; }
+      .b-hero { padding: 60px 16px; }
+      .b-hero h1 { font-size: 32px; }
+      .b-hero p { font-size: 16px; }
+      .b-section { padding: 40px 16px; }
+      .b-columns { grid-template-columns: 1fr !important; padding: 0 16px; }
+      .b-chart { padding: 20px; }
+      .chart-bar-label { width: 80px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tmc-bar">
+    <a href="https://tmc.gg" target="_blank" rel="noopener"><img src="/images/tmc-logo.png" alt="TMC" width="207" height="58"></a>
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="header-logo">inline<span class="tv">tv</span></a>
+      <nav class="header-nav">
+        <a href="/">Home</a>
+        <a href="/pods/">Podcasts</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="cover-wrap"></div>
+  <div id="page-content">
+    <div class="page-loading">
+      <div class="spinner"></div>
+      <p>Loading…</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  (function() {
+    'use strict';
+    const SUPABASE_URL = 'https://qiyxxjlekhnjthuepxzt.supabase.co';
+    const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpeXh4amxla2huanRodWVweHp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NTk2NDIsImV4cCI6MjA5NDAzNTY0Mn0.bRYA7hB5b3TZGlYJCJ06skDLEY6INGdFQztt89tIPWg';
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+    // Reserved paths (won't be treated as page slugs)
+    const RESERVED = ['', 'staff', 'pods', 'p', 'images', 'api', 'page.html', 'index.html'];
+
+    // Extract slug from URL path
+    function getSlug() {
+      // Check query param first (legacy /p/?page=slug or fallback)
+      const qp = new URLSearchParams(location.search).get('page');
+      if (qp) return qp;
+      // Otherwise read from path
+      let path = location.pathname.replace(/^\/+|\/+$/g, '');
+      if (RESERVED.indexOf(path) !== -1) return null;
+      return path || null;
+    }
+
+    const esc = (s) => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+    function formatText(text) {
+      return esc(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+        .replace(/\n/g, '<br>');
+    }
+
+    async function load() {
+      const slug = getSlug();
+      if (!slug) { show404(); return; }
+      try {
+        const { data, error } = await sb
+          .from('pages').select('*')
+          .eq('slug', slug).eq('published', true).single();
+        if (error || !data) { show404(); return; }
+        render(data);
+      } catch (e) { console.error(e); show404(); }
+    }
+
+    function render(page) {
+      document.title = page.title + ' — Inline TV';
+
+      // Cover
+      if (page.cover_image) {
+        document.getElementById('cover-wrap').innerHTML =
+          '<img class="page-cover" src="' + esc(page.cover_image) + '" alt="' + esc(page.title) + '">';
+      }
+
+      let html = '';
+      const blocks = page.blocks || [];
+
+      // Has a hero block as first item? Don't show default meta
+      const hasHero = blocks.length && blocks[0].type === 'hero';
+
+      if (!hasHero) {
+        html += '<div class="page-meta">';
+        html += '<h1 class="page-title">' + esc(page.title) + '</h1>';
+        if (page.description) html += '<p class="page-description">' + esc(page.description) + '</p>';
+        html += '<span class="page-date">Published ' + new Date(page.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) + '</span>';
+        html += '</div>';
+        html += '<div class="page-divider"></div>';
+      }
+
+      // Table of contents from h2/h3 headings
+      const headings = blocks
+        .map((b, i) => ({ block: b, idx: i }))
+        .filter(x => x.block.type === 'heading' && (x.block.data.level === 2 || x.block.data.level === 3));
+      if (headings.length >= 3) {
+        html += '<div class="page-toc"><div class="page-toc-card"><h4>On this page</h4><ul>';
+        headings.forEach(({ block, idx }) => {
+          const cls = block.data.level === 3 ? ' class="toc-h3"' : '';
+          html += '<li' + cls + '><a href="#h-' + idx + '">' + esc(block.data.text) + '</a></li>';
+        });
+        html += '</ul></div></div>';
+      }
+
+      html += '<div class="blocks-wrap">';
+      blocks.forEach((b, i) => { html += renderBlock(b, i); });
+      html += '</div>';
+
+      document.getElementById('page-content').innerHTML = html;
+
+      // Animate chart bars after mount
+      setTimeout(() => {
+        document.querySelectorAll('.chart-bar-fill').forEach(bar => {
+          const w = bar.dataset.w; bar.style.width = w;
+        });
+      }, 100);
+    }
+
+    function renderBlock(block, i) {
+      const d = block.data || {};
+      switch (block.type) {
+        case 'heading': {
+          const lvl = d.level || 2;
+          return '<div class="b b-text-wrap"><h' + lvl + ' class="b-h' + lvl + '" id="h-' + i + '">' + esc(d.text || '') + '</h' + lvl + '></div>';
+        }
+        case 'text':
+          return '<div class="b b-text-wrap"><p class="b-p">' + formatText(d.text || '') + '</p></div>';
+        case 'image': {
+          let h = '<div class="b b-text-wrap"><img class="b-img" src="' + esc(d.url) + '" alt="' + esc(d.alt) + '" loading="lazy">';
+          if (d.caption) h += '<div class="b-img-caption">' + esc(d.caption) + '</div>';
+          return h + '</div>';
+        }
+        case 'code': {
+          let h = '<div class="b b-text-wrap"><div class="b-code">';
+          if (d.language) h += '<span class="lang">' + esc(d.language) + '</span>';
+          return h + '<pre><code>' + esc(d.code) + '</code></pre></div></div>';
+        }
+        case 'callout': {
+          const style = d.style || 'info';
+          const icons = { info: 'ℹ️', warning: '⚠️', tip: '💡', error: '❌' };
+          let h = '<div class="b b-text-wrap"><div class="b-callout ' + style + '">';
+          if (d.title) h += '<strong>' + (icons[style] || '') + ' ' + esc(d.title) + '</strong>';
+          return h + formatText(d.text || '') + '</div></div>';
+        }
+        case 'divider':
+          return '<hr class="b b-divider">';
+        case 'quote':
+          return '<div class="b b-text-wrap"><blockquote class="b-quote">' + formatText(d.text || '') + '</blockquote></div>';
+        case 'list': {
+          const tag = d.ordered ? 'ol' : 'ul';
+          const items = (d.items || []).filter(x => x);
+          return '<div class="b b-text-wrap"><' + tag + ' class="b-list">' + items.map(it => '<li>' + formatText(it) + '</li>').join('') + '</' + tag + '></div>';
+        }
+        case 'table': {
+          const rows = d.rows || [];
+          if (!rows.length) return '';
+          let h = '<div class="b b-text-wrap"><table class="b-table"><thead><tr>';
+          (rows[0] || []).forEach(c => { h += '<th>' + esc(c) + '</th>'; });
+          h += '</tr></thead><tbody>';
+          rows.slice(1).forEach(r => {
+            h += '<tr>' + r.map(c => '<td>' + esc(c) + '</td>').join('') + '</tr>';
+          });
+          return h + '</tbody></table></div>';
+        }
+        case 'chart': {
+          const bars = d.bars || [];
+          const max = Math.max(1, ...bars.map(x => +x.value || 0));
+          let h = '<div class="b b-text-wrap"><div class="b-chart">';
+          if (d.title) h += '<div class="chart-title">' + esc(d.title) + '</div>';
+          bars.forEach(b => {
+            const pct = ((+b.value || 0) / max * 100).toFixed(1) + '%';
+            h += '<div class="chart-bar"><div class="chart-bar-label">' + esc(b.label) + '</div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:0" data-w="' + pct + '">' + (b.value || 0) + '</div></div></div>';
+          });
+          return h + '</div></div>';
+        }
+        case 'hero': {
+          const bg = d.background || '#20f';
+          const color = d.textColor || '#fff';
+          const bgIsImg = bg.indexOf('http') === 0 || bg.indexOf('/') === 0;
+          const bgStyle = bgIsImg
+            ? 'background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(\'' + esc(bg) + '\');background-size:cover;background-position:center;'
+            : 'background:' + esc(bg) + ';';
+          let h = '<section class="b b-hero" style="' + bgStyle + 'color:' + esc(color) + ';">';
+          h += '<div class="b-hero-inner">';
+          if (d.title) h += '<h1>' + esc(d.title) + '</h1>';
+          if (d.subtitle) h += '<p>' + esc(d.subtitle) + '</p>';
+          if (d.ctaText && d.ctaLink) {
+            const ctaBg = d.ctaBackground || '#fff';
+            const ctaColor = d.ctaColor || '#20f';
+            h += '<a class="hero-cta" href="' + esc(d.ctaLink) + '" style="background:' + esc(ctaBg) + ';color:' + esc(ctaColor) + ';">' + esc(d.ctaText) + ' →</a>';
+          }
+          return h + '</div></section>';
+        }
+        case 'section': {
+          const bg = d.background || '#fafafa';
+          const color = d.textColor || '#1a1a1a';
+          const py = d.padding != null ? d.padding : 56;
+          let inner = '';
+          (d.blocks || []).forEach((sub, si) => { inner += renderBlock(sub, i * 100 + si); });
+          return '<section class="b b-section" style="background:' + esc(bg) + ';color:' + esc(color) + ';padding:' + py + 'px 24px;"><div class="b-section-inner">' + inner + '</div></section>';
+        }
+        case 'columns': {
+          const count = d.count || 2;
+          const cols = d.columns || [];
+          let h = '<div class="b b-columns cols-' + count + '">';
+          cols.forEach(col => {
+            const bg = col.background || '#fafafa';
+            h += '<div class="b-column" style="background:' + esc(bg) + ';">';
+            if (col.title) h += '<h3>' + esc(col.title) + '</h3>';
+            if (col.text) h += '<p>' + formatText(col.text) + '</p>';
+            h += '</div>';
+          });
+          return h + '</div>';
+        }
+        case 'button': {
+          const style = d.style || 'primary';
+          const align = d.align || 'center';
+          return '<div class="b b-button-wrap" style="text-align:' + esc(align) + ';padding:16px 24px;"><a class="b-button style-' + esc(style) + '" href="' + esc(d.link || '#') + '">' + esc(d.text || 'Click here') + '</a></div>';
+        }
+        case 'spacer': {
+          const h = d.height != null ? d.height : 40;
+          return '<div class="b b-spacer" style="height:' + h + 'px;"></div>';
+        }
+        case 'embed':
+          return '<div class="b b-text-wrap"><iframe src="' + esc(d.url) + '" height="' + (d.height || 400) + '" style="width:100%;border:none;border-radius:12px;" allowfullscreen></iframe></div>';
+        default:
+          return '';
+      }
+    }
+
+    function show404() {
+      document.title = 'Page Not Found — Inline TV';
+      document.getElementById('page-content').innerHTML =
+        '<div class="page-404"><h1>404</h1><p>This page doesn\'t exist or isn\'t published yet.</p><a href="/">Back to Home</a></div>';
+    }
+
+    load();
+  })();
+  </script>
+</body>
+</html>
