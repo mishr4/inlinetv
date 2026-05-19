@@ -322,16 +322,10 @@
 </head>
 <body>
 <style>
-  .tmc-bar { position: fixed; top: 0; left: 0; right: 0; height: 44px; background: #000; z-index: 10000; display: flex; align-items: center; }
+  .tmc-bar { height: 44px; background: #000; display: flex; align-items: center; position: relative; z-index: 5; }
   .tmc-bar a { display: block; }
   .tmc-bar img { display: block; height: 44px; width: auto; }
-  body { padding-top: 44px !important; }
 </style>
-<div class="tmc-bar">
-  <a href="https://tmc.gg" target="_blank" rel="noopener">
-    <img src="/Frame%206%20(43)%202%20(1).png" alt="TMC" width="207" height="58">
-  </a>
-</div>
 	<!-- Start of bodyStart -->
     
     <!-- End of bodyStart -->
@@ -586,6 +580,13 @@ window.addEventListener('load', () => {
   });
 });
 </script>
+
+<!-- TMC bar (sits under Framer's inline tv blue header, scrolls away normally) -->
+<div class="tmc-bar">
+  <a href="https://tmc.gg" target="_blank" rel="noopener">
+    <img src="/Frame%206%20(43)%202%20(1).png" alt="TMC" width="207" height="58">
+  </a>
+</div>
 
 <!-- ===== HIDE FRAMER STORIES + NEW ARTICLES SECTION ===== -->
 <style>
@@ -1258,9 +1259,5 @@ window.addEventListener('load', () => {
   };
 </script>
 <script src="https://cirya.co/sso-sdk.js" async></script>
-<style>
-  /* Push the CiryaSSO floating pill below the 44px TMC bar */
-  [data-cirya-sso-floating] { top: 56px !important; }
-</style>
 </body>
 </html>

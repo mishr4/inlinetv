@@ -15,18 +15,18 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-    body { background: #fff; font-family: 'Inter', -apple-system, sans-serif; color: #1a1a1a; min-height: 100vh; padding-top: 44px; }
+    body { background: #fff; font-family: 'Inter', -apple-system, sans-serif; color: #1a1a1a; min-height: 100vh; }
     a { color: #20f; }
 
     /* Reading progress bar */
-    .progress-bar { position: fixed; top: 44px; left: 0; height: 3px; background: linear-gradient(90deg, #20f, #6644ff); z-index: 9999; width: 0%; transition: width 0.1s ease; }
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #20f, #6644ff); z-index: 9999; width: 0%; transition: width 0.1s ease; }
 
-    /* TMC bar */
-    .tmc-bar { position: fixed; top: 0; left: 0; right: 0; height: 44px; background: #000; z-index: 10000; display: flex; align-items: center; }
+    /* TMC bar — below the header, scrolls away with content */
+    .tmc-bar { height: 44px; background: #000; display: flex; align-items: center; }
     .tmc-bar img { display: block; height: 44px; width: auto; }
 
-    /* Header */
-    .header { background: #20f; height: 56px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 44px; z-index: 100; transition: box-shadow .2s; }
+    /* Header — sticky at top */
+    .header { background: #20f; height: 56px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 0; z-index: 100; transition: box-shadow .2s; }
     .header.scrolled { box-shadow: 0 4px 24px rgba(34,0,255,0.15); }
     .header-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .header-logo { font-size: 20px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
@@ -337,10 +337,6 @@
 
   <div class="progress-bar" id="progress-bar"></div>
 
-  <div class="tmc-bar">
-    <a href="https://tmc.gg" target="_blank" rel="noopener"><img src="/images/tmc-logo.png" alt="TMC" width="207" height="58"></a>
-  </div>
-
   <header class="header" id="header">
     <div class="header-inner">
       <a href="/" class="header-logo">inline<span class="tv">tv</span></a>
@@ -351,6 +347,10 @@
       </nav>
     </div>
   </header>
+
+  <div class="tmc-bar">
+    <a href="https://tmc.gg" target="_blank" rel="noopener"><img src="/images/tmc-logo.png" alt="TMC" width="207" height="58"></a>
+  </div>
 
   <div id="cover-wrap"></div>
   <div id="page-content">

@@ -14,15 +14,15 @@
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-    body { background: #fef6f0; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; padding-top: 44px; }
+    body { background: #fef6f0; font-family: 'Inter', sans-serif; color: #1a1a1a; min-height: 100vh; }
 
-    .tmc-bar { position: fixed; top: 0; left: 0; right: 0; height: 44px; background: #000; z-index: 10000; display: flex; align-items: center; }
+    .tmc-bar { height: 44px; background: #000; display: flex; align-items: center; }
     .tmc-bar a { display: block; }
     .tmc-bar img { display: block; height: 44px; width: auto; }
     a { color: #20f; }
 
     /* Header */
-    .header { background: #20f; height: 60px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 58px; z-index: 100; }
+    .header { background: #20f; height: 60px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 0; z-index: 100; }
     .header-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .header-logo { font-family: 'ABC Ginto Nord Unlicensed Trial Bold', sans-serif; font-size: 20px; color: #fff; text-decoration: none; }
     .header-logo span { color: rgba(255,255,255,0.6); }
@@ -140,9 +140,6 @@
   </style>
 </head>
 <body>
-  <div class="tmc-bar">
-    <a href="https://tmc.gg" target="_blank" rel="noopener"><img src="/images/tmc-logo.png" alt="TMC" width="207" height="58"></a>
-  </div>
   <header class="header">
     <div class="header-inner">
       <a href="/" class="header-logo">inline<span>tv</span></a>
@@ -153,6 +150,10 @@
       </nav>
     </div>
   </header>
+
+  <div class="tmc-bar">
+    <a href="https://tmc.gg" target="_blank" rel="noopener"><img src="/images/tmc-logo.png" alt="TMC" width="207" height="58"></a>
+  </div>
 
   <div id="page-cover-wrap"></div>
   <div id="page-content">

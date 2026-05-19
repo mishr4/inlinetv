@@ -10,20 +10,20 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    body { background: #fef6f0; font-family: 'Inter', system-ui, sans-serif; color: #1a1a1a; min-height: 100vh; padding-top: 44px; transition: background .3s; }
+    body { background: #fef6f0; font-family: 'Inter', system-ui, sans-serif; color: #1a1a1a; min-height: 100vh; transition: background .3s; }
     body.in-builder { background: #fafafa; padding-top: 0; }
     a { text-decoration: none; color: inherit; }
     button { font-family: inherit; }
     input, textarea, select { font-family: inherit; }
 
     /* TMC top bar */
-    .tmc-bar { position: fixed; top: 0; left: 0; right: 0; height: 44px; background: #000; z-index: 1000; display: flex; align-items: center; }
+    .tmc-bar { height: 44px; background: #000; display: flex; align-items: center; }
     .tmc-bar a { display: block; }
     .tmc-bar img { display: block; height: 44px; width: auto; }
     body.in-builder .tmc-bar { display: none; }
 
     /* Inline header */
-    .header { background: #20f; height: 64px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 44px; z-index: 100; }
+    .header { background: #20f; height: 64px; display: flex; align-items: center; padding: 0 24px; position: sticky; top: 0; z-index: 100; }
     .header-inner { max-width: 1200px; width: 100%; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .logo { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
     .logo .tv { opacity: 0.7; }
@@ -487,10 +487,6 @@
 <body>
 
   <!-- TMC TOP BAR -->
-  <div class="tmc-bar" id="tmc-bar">
-    <a href="https://tmc.gg" target="_blank" rel="noopener"><img src="/images/tmc-logo.png" alt="TMC" width="207" height="58"></a>
-  </div>
-
   <!-- INLINE HEADER -->
   <div class="header" id="main-header">
     <div class="header-inner">
@@ -503,6 +499,10 @@
         <div data-cirya-sso></div>
       </nav>
     </div>
+  </div>
+
+  <div class="tmc-bar" id="tmc-bar">
+    <a href="https://tmc.gg" target="_blank" rel="noopener"><img src="/images/tmc-logo.png" alt="TMC" width="207" height="58"></a>
   </div>
 
   <!-- LOGIN -->
