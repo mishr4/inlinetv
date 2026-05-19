@@ -1248,5 +1248,19 @@ window.addEventListener('load', () => {
     </div>
   </div>
 </footer>
+
+<!-- CiryaSSO (floating top-right since Framer hydration would strip an inline mount) -->
+<script>
+  window.ciryaSsoConfig = {
+    theme: 'dark',
+    position: 'top-right',
+    showWhenSignedIn: true
+  };
+</script>
+<script src="https://cirya.co/sso-sdk.js" async></script>
+<style>
+  /* Push the CiryaSSO floating pill below the 44px TMC bar */
+  [data-cirya-sso-floating] { top: 56px !important; }
+</style>
 </body>
 </html>
